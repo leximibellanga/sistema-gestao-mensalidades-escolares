@@ -1,4 +1,4 @@
-package sistema.gestao.mensalidades.escolares;
+package App;
 
 public class SistemaGestaoMensalidadesEscolares {
 
