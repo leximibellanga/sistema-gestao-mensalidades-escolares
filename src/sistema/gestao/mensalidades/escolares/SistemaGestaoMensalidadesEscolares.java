@@ -1,20 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package sistema.gestao.mensalidades.escolares;
 
-/**
- *
- * @author Lexmibel Guidion
- */
 public class SistemaGestaoMensalidadesEscolares {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("Testando a aplicacao.");
     }
-    
 }
