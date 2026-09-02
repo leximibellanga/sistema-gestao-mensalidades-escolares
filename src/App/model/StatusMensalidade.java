@@ -1,5 +1,7 @@
 package App.model;
 
-public class StatusMensalidade {
-    
+public enum StatusMensalidade {
+    PENDENTE,
+    PAGO,
+    ATRASADO
 }
