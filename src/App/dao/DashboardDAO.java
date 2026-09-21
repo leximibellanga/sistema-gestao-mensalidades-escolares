@@ -38,13 +38,13 @@ public class DashboardDAO {
     }
     
     public int countMensalidades() {
-        int totalAMensalidades = -1;
+        int totalMensalidades = -1;
         
         String sql = "SELECT count(*) AS total FROM mensalidade";
         try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    totalAMensalidades = rs.getInt("total");
+                    totalMensalidades = rs.getInt("total");
                 }
             }
         } catch (SQLException e) {
