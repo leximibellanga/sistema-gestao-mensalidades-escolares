@@ -28,17 +28,178 @@ public class AlunosListagem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        sidebarLinkDashboard = new javax.swing.JButton();
+        sidebarLinkAlunos = new javax.swing.JButton();
+        sidebarLinkTurmas = new javax.swing.JButton();
+        sidebarLinkMensalidades = new javax.swing.JButton();
+        sidebarLinkPagamentos = new javax.swing.JButton();
+        sidebarLinkRelatorios = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        lblTotalAlunos = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel2.setBackground(new java.awt.Color(0, 51, 51));
+
+        sidebarLinkDashboard.setBackground(new java.awt.Color(0, 102, 102));
+        sidebarLinkDashboard.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        sidebarLinkDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarLinkDashboard.setText("Dashboard");
+        sidebarLinkDashboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        sidebarLinkAlunos.setBackground(new java.awt.Color(0, 102, 102));
+        sidebarLinkAlunos.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        sidebarLinkAlunos.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarLinkAlunos.setText("Alunos");
+        sidebarLinkAlunos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        sidebarLinkTurmas.setBackground(new java.awt.Color(0, 102, 102));
+        sidebarLinkTurmas.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        sidebarLinkTurmas.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarLinkTurmas.setText("Turmas");
+        sidebarLinkTurmas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        sidebarLinkMensalidades.setBackground(new java.awt.Color(0, 102, 102));
+        sidebarLinkMensalidades.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        sidebarLinkMensalidades.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarLinkMensalidades.setText("Mensalidades");
+        sidebarLinkMensalidades.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        sidebarLinkPagamentos.setBackground(new java.awt.Color(0, 102, 102));
+        sidebarLinkPagamentos.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        sidebarLinkPagamentos.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarLinkPagamentos.setText("Pagamentos");
+        sidebarLinkPagamentos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        sidebarLinkRelatorios.setBackground(new java.awt.Color(0, 102, 102));
+        sidebarLinkRelatorios.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        sidebarLinkRelatorios.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarLinkRelatorios.setText("Relatorios");
+        sidebarLinkRelatorios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("SGME");
+
+        jLabel6.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(241, 241, 241));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Mensalidades Escolares");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sidebarLinkTurmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sidebarLinkPagamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(sidebarLinkAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(sidebarLinkMensalidades, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(sidebarLinkDashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(sidebarLinkRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(33, 33, 33)
+                .addComponent(sidebarLinkDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sidebarLinkAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sidebarLinkTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sidebarLinkMensalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sidebarLinkPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sidebarLinkRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(448, Short.MAX_VALUE))
+        );
+
+        jLabel13.setFont(new java.awt.Font("Maiandra GD", 1, 18)); // NOI18N
+        jLabel13.setText("Alunos");
+
+        jTable1.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nr. estudante", "Nome", "Contacto", "Encarregado", "Turma", "Data de Matricula"
+            }
+        ));
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(jTable1);
+
+        lblTotalAlunos.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        lblTotalAlunos.setText("Total de alunos: ");
+
+        jButton1.setBackground(new java.awt.Color(0, 51, 51));
+        jButton1.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Adicionar aluno");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lblTotalAlunos)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 888, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 32, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalAlunos)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -70,5 +231,20 @@ public class AlunosListagem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblTotalAlunos;
+    private javax.swing.JButton sidebarLinkAlunos;
+    private javax.swing.JButton sidebarLinkDashboard;
+    private javax.swing.JButton sidebarLinkMensalidades;
+    private javax.swing.JButton sidebarLinkPagamentos;
+    private javax.swing.JButton sidebarLinkRelatorios;
+    private javax.swing.JButton sidebarLinkTurmas;
     // End of variables declaration//GEN-END:variables
 }
