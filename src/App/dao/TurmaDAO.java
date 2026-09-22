@@ -63,6 +63,21 @@ public class TurmaDAO {
         }
         return null;
     }
+    
+     public Turma buscarPorNome(String nomeTurma) {
+        String sql = "SELECT * FROM turma WHERE nome = ?";
+        try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(sql)) {
+            stmt.setString(1, nomeTurma);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapear(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar turma: " + e.getMessage(), e);
+        }
+        return null;
+    }
 
     public List<Turma> listarTodas() {
         List<Turma> lista = new ArrayList<>();
