@@ -66,7 +66,7 @@ public class TurmaDAO {
 
     public List<Turma> listarTodas() {
         List<Turma> lista = new ArrayList<>();
-        String sql = "SELECT * FROM turma ORDER BY nome";
+        String sql = "SELECT * FROM turma ORDER BY nome DESC";
         try (Statement stmt = ConexaoBD.getConexao().createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
