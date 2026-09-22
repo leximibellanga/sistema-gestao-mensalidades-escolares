@@ -4,6 +4,15 @@
  */
 package App.frontend;
 
+import App.dao.AlunoDAO;
+import App.model.Aluno;
+import App.service.AlunoService;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Lexmibel Guidion
@@ -17,6 +26,45 @@ public class AlunosListagem extends javax.swing.JFrame {
      */
     public AlunosListagem() {
         initComponents();
+        carregarAlunos();
+    }
+    
+    public void carregarAlunos() {
+        AlunoService serviceAluno = new AlunoService();
+        
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0);
+
+        List<Aluno> alunosLista = serviceAluno.listarTodos();
+        
+        // pegar valor total dos alunos
+        this.lblTotalAlunos.setText(lblTotalAlunos.getText()+ " " + alunosLista.size());
+        
+        for(Aluno a : alunosLista){
+            modelo.addRow(
+                    new Object[]{
+                        a.getNumeroEstudante(),
+                        a.getNome(),
+                        a.getContacto(),
+                        a.getEncarregado(),
+                        a.getTurma().getNome(),
+                        a.getDataMatricula(),
+                    }
+            );
+        }
+        
+        if (modelo.getRowCount() == 0) {
+            modelo.addRow(
+                    new Object[]{
+                    "vazio",
+                    "vazio",
+                    "vazio",
+                    "vazio",
+                    "vazio",
+                    "vazio"
+                }
+            );
+        }
     }
 
     /**
