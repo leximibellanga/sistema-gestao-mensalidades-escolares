@@ -4,6 +4,17 @@
  */
 package App.frontend;
 
+import App.dao.TurmaDAO;
+import App.model.Aluno;
+import App.model.Turma;
+import App.service.AlunoService;
+import java.awt.HeadlessException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lexmibel Guidion
@@ -17,6 +28,21 @@ public class AlunosForm extends javax.swing.JFrame {
      */
     public AlunosForm() {
         initComponents();
+        carregarTurmas();
+    }
+    
+    // carregar turmas 
+    public void carregarTurmas() {
+        TurmaDAO turmaDAO = new TurmaDAO();
+        List<Turma> turmasLista = turmaDAO.listarTodas();
+        
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel();
+        
+        for(Turma t : turmasLista){
+            modelo.addElement(t.getNome());
+        }
+        
+        this.selectTurmas.setModel(modelo);
     }
     
 
@@ -165,6 +191,30 @@ public class AlunosForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        AlunoService serviceAluno = new AlunoService();
+        String gerarCodigoAluno = selectTurmas.getSelectedItem().toString().substring(0, 3) + "." + serviceAluno.listarTodos().size();
+        
+        TurmaDAO turmaDAO = new TurmaDAO();
+        
+        Aluno alunoNovo = new Aluno(
+                this.inputNome.getText(), 
+                gerarCodigoAluno, // nr_est
+                this.inputNomeEncarregado.getText(), 
+                this.inputContacto.getText(), 
+                turmaDAO.buscarPorNome(this.selectTurmas.getSelectedItem().toString()), 
+                LocalDate.of(Integer.parseInt(this.inputDataMatricula.getText().substring(0, 4)), Integer.parseInt(this.inputDataMatricula.getText().substring(5, 7)), Integer.parseInt(this.inputDataMatricula.getText().substring(8, 10)))
+        );
+        
+        // cadastrar
+        try {
+           serviceAluno.cadastrar(alunoNovo); 
+           JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Erro no cadastro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
