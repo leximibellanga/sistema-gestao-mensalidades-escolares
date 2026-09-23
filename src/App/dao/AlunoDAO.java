@@ -74,6 +74,21 @@ public class AlunoDAO {
         }
         return null;
     }
+    
+    public Aluno buscarPorNrEstudante(String nrEst) {
+        String sql = "SELECT * FROM aluno WHERE numero_estudante = ?";
+        try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(sql)) {
+            stmt.setString(1, nrEst);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapear(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar aluno: " + e.getMessage(), e);
+        }
+        return null;
+    }
 
     public List<Aluno> listarTodos() {
         List<Aluno> lista = new ArrayList<>();
