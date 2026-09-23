@@ -35,10 +35,10 @@ public class AlunoDAO {
     }
 
     public void atualizar(Aluno aluno) {
-        String sql = "UPDATE aluno SET nome = ?, numero_estudante = ?, encarregado = ?, contacto = ?, turma_id = ?, data_matricula = ? WHERE id = ?";
+        String sql = "UPDATE aluno SET nome = ?, encarregado = ?, contacto = ?, turma_id = ?, data_matricula = ? WHERE id = ?";
         try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(sql)) {
             stmt.setString(1, aluno.getNome());
-            stmt.setString(2, aluno.getNumeroEstudante());
+//            stmt.setString(2, aluno.getNumeroEstudante());
             stmt.setString(3, aluno.getEncarregado());
             stmt.setString(4, aluno.getContacto());
             stmt.setInt(5, aluno.getTurma().getId());
@@ -50,10 +50,10 @@ public class AlunoDAO {
         }
     }
 
-    public void remover(int id) {
-        String sql = "DELETE FROM aluno WHERE id = ?";
+    public void remover(String nrEstudante) {
+        String sql = "DELETE FROM aluno WHERE numero_estudante = ?";
         try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setString(1, nrEstudante);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao remover aluno: " + e.getMessage(), e);
