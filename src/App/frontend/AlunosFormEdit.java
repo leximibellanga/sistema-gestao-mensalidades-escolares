@@ -10,7 +10,6 @@ import App.model.Turma;
 import App.service.AlunoService;
 import java.awt.HeadlessException;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -29,6 +28,7 @@ public class AlunosFormEdit extends javax.swing.JFrame {
     public AlunosFormEdit() {
         initComponents();
         carregarTurmas();
+        carregarAlunos();
     }
     
     // carregar turmas 
@@ -37,12 +37,28 @@ public class AlunosFormEdit extends javax.swing.JFrame {
         List<Turma> turmasLista = turmaDAO.listarTodas();
         
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel();
+        modelo.addElement("-- selecione turma");
         
         for(Turma t : turmasLista){
             modelo.addElement(t.getNome());
         }
         
         this.selectTurmas.setModel(modelo);
+    }
+    
+    // carregar alunos 
+    public void carregarAlunos() {
+        AlunoService serviceAluno = new AlunoService();
+        List<Aluno> alunosLista = serviceAluno.listarTodos();
+        
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel();
+        modelo.addElement("-- selecione o codigo do estudante");
+        
+        for(Aluno a : alunosLista){
+            modelo.addElement(a.getNumeroEstudante());
+        }
+        
+        this.selectAluno.setModel(modelo);
     }
     
 
@@ -70,7 +86,10 @@ public class AlunosFormEdit extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         inputDataMatricula = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
-        btnCadastrar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        selectAluno = new javax.swing.JComboBox<>();
+        btnBuscarAluno = new javax.swing.JButton();
 
         jLabel6.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
         jLabel6.setText("Contacto:");
@@ -81,7 +100,7 @@ public class AlunosFormEdit extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Maiandra GD", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro de estudante");
+        jLabel1.setText("Editar dados de estudante");
 
         jLabel2.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
         jLabel2.setText("Selecione turma");
@@ -105,7 +124,7 @@ public class AlunosFormEdit extends javax.swing.JFrame {
         inputContacto.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
-        jLabel7.setText("Data da matricula (aaaa-mm-dd)");
+        jLabel7.setText("Data da matricula (AAAA-MM-DD)");
 
         inputDataMatricula.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
 
@@ -114,13 +133,29 @@ public class AlunosFormEdit extends javax.swing.JFrame {
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
 
-        btnCadastrar.setBackground(new java.awt.Color(0, 51, 51));
-        btnCadastrar.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
-        btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setBackground(new java.awt.Color(0, 51, 51));
+        btnSalvar.setFont(new java.awt.Font("Maiandra GD", 1, 14)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setText("Cadastrar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        jLabel8.setText("Selecione o aluno");
+
+        selectAluno.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        selectAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnBuscarAluno.setBackground(new java.awt.Color(0, 51, 204));
+        btnBuscarAluno.setFont(new java.awt.Font("Maiandra GD", 0, 14)); // NOI18N
+        btnBuscarAluno.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarAluno.setText("Buscar");
+        btnBuscarAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAlunoActionPerformed(evt);
             }
         });
 
@@ -131,6 +166,7 @@ public class AlunosFormEdit extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(401, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8)
                     .addComponent(jLabel7)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
@@ -143,15 +179,25 @@ public class AlunosFormEdit extends javax.swing.JFrame {
                     .addComponent(selectTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputDataMatricula)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(selectAluno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarAluno)))
                 .addGap(399, 399, 399))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarAluno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,10 +218,10 @@ public class AlunosFormEdit extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputDataMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGap(110, 110, 110))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,36 +238,47 @@ public class AlunosFormEdit extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if (!inputNome.getText().trim().isEmpty() && !inputNomeEncarregado.getText().trim().isEmpty() && !inputContacto.getText().trim().isEmpty() && !inputDataMatricula.getText().trim().isEmpty()) {
-            AlunoService serviceAluno = new AlunoService();
-            String gerarCodigoAluno = selectTurmas.getSelectedItem().toString().substring(0, 3) + "." + (serviceAluno.listarTodos().size() + 1) + "." + LocalDate.now().getYear();
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        AlunoService serviceAluno = new AlunoService();
+        Aluno aluno = serviceAluno.buscarPorNrEstudante(this.selectAluno.getSelectedItem().toString());
+
+        // salvar alteracoes
+        try {
             TurmaDAO turmaDAO = new TurmaDAO();
-        
-            Aluno alunoNovo = new Aluno(
-                this.inputNome.getText(), 
-                gerarCodigoAluno, // nr_est
-                this.inputNomeEncarregado.getText(), 
-                this.inputContacto.getText(), 
-                turmaDAO.buscarPorNome(this.selectTurmas.getSelectedItem().toString()), 
-                LocalDate.of(Integer.parseInt(this.inputDataMatricula.getText().substring(0, 4)), Integer.parseInt(this.inputDataMatricula.getText().substring(5, 7)), Integer.parseInt(this.inputDataMatricula.getText().substring(8, 10)))
+            Aluno alunoEdit = new Aluno(
+                    this.inputNome.getText(), 
+                    aluno.getNumeroEstudante(), 
+                    this.inputNomeEncarregado.getText(), 
+                    this.inputContacto.getText(), 
+                    turmaDAO.buscarPorNome(this.selectTurmas.getSelectedItem().toString()),
+                    LocalDate.of(Integer.parseInt(this.inputDataMatricula.getText().substring(0, 4)), Integer.parseInt(this.inputDataMatricula.getText().substring(5, 7)), Integer.parseInt(this.inputDataMatricula.getText().substring(8, 10)))
             );
-            
-            // cadastrar
-            try {
-               serviceAluno.cadastrar(alunoNovo); 
-               JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-               inputContacto.setText("");
-               inputNome.setText("");
-               inputNomeEncarregado.setText("");
-               inputDataMatricula.setText("");
-            } catch (HeadlessException e) {
-                JOptionPane.showMessageDialog(this, "Erro no cadastro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor preencha todos campos!", "Campos vazios", JOptionPane.ERROR_MESSAGE);
+            serviceAluno.atualizar(alunoEdit);
+            JOptionPane.showMessageDialog(this, "Alteracao feita com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar novos dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnBuscarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlunoActionPerformed
+        // pegar dados do aluno
+        AlunoService serviceAluno = new AlunoService();
+        Aluno aluno = serviceAluno.buscarPorNrEstudante(this.selectAluno.getSelectedItem().toString());
+        this.inputNome.setText(aluno.getNome());
+        this.inputNomeEncarregado.setText(aluno.getEncarregado());
+        this.inputContacto.setText(aluno.getContacto());
+        this.inputDataMatricula.setText(aluno.getDataMatricula().toString());
+        
+        int indexTurma;
+        switch (aluno.getTurma().getNome()) {
+            case "INFORMATICA" -> indexTurma = 1;
+            case "GESTAO" -> indexTurma = 2;
+            case "DIREITO" -> indexTurma = 3;
+            case "CONTABILIDADE" -> indexTurma = 4;
+            default -> indexTurma = 0;
+        }
+        this.selectTurmas.setSelectedIndex(indexTurma);
+    }//GEN-LAST:event_btnBuscarAlunoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,8 +306,9 @@ public class AlunosFormEdit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnBuscarAluno;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField inputContacto;
     private javax.swing.JTextField inputDataMatricula;
     private javax.swing.JTextField inputNome;
@@ -262,8 +320,10 @@ public class AlunosFormEdit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JComboBox<String> selectAluno;
     private javax.swing.JComboBox<String> selectTurmas;
     // End of variables declaration//GEN-END:variables
 }
