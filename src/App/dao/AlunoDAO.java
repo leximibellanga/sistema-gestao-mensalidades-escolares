@@ -77,7 +77,7 @@ public class AlunoDAO {
 
     public List<Aluno> listarTodos() {
         List<Aluno> lista = new ArrayList<>();
-        String sql = "SELECT * FROM aluno ORDER BY nome";
+        String sql = "SELECT * FROM aluno ORDER BY turma_id DESC, numero_estudante, nome";
         try (Statement stmt = ConexaoBD.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
 
