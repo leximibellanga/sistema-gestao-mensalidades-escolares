@@ -25,6 +25,10 @@ public class AlunoService {
     public Aluno buscarPorId(int id) {
         return alunoDAO.buscarPorId(id);
     }
+    
+    public Aluno buscarPorNrEstudante(String nrEst) {
+        return alunoDAO.buscarPorNrEstudante(nrEst);
+    }
 
     public List<Aluno> listarTodos() {
         return alunoDAO.listarTodos();
