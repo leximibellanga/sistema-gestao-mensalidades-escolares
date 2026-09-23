@@ -193,26 +193,33 @@ public class AlunosForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        AlunoService serviceAluno = new AlunoService();
-        String gerarCodigoAluno = selectTurmas.getSelectedItem().toString().substring(0, 3) + "." + serviceAluno.listarTodos().size();
+        if (!inputNome.getText().trim().isEmpty() && !inputNomeEncarregado.getText().trim().isEmpty() && !inputContacto.getText().trim().isEmpty() && !inputDataMatricula.getText().trim().isEmpty()) {
+            AlunoService serviceAluno = new AlunoService();
+            String gerarCodigoAluno = selectTurmas.getSelectedItem().toString().substring(0, 3) + "." + (serviceAluno.listarTodos().size() + 1) + "." + LocalDate.now().getYear();
+            TurmaDAO turmaDAO = new TurmaDAO();
         
-        TurmaDAO turmaDAO = new TurmaDAO();
-        
-        Aluno alunoNovo = new Aluno(
+            Aluno alunoNovo = new Aluno(
                 this.inputNome.getText(), 
                 gerarCodigoAluno, // nr_est
                 this.inputNomeEncarregado.getText(), 
                 this.inputContacto.getText(), 
                 turmaDAO.buscarPorNome(this.selectTurmas.getSelectedItem().toString()), 
                 LocalDate.of(Integer.parseInt(this.inputDataMatricula.getText().substring(0, 4)), Integer.parseInt(this.inputDataMatricula.getText().substring(5, 7)), Integer.parseInt(this.inputDataMatricula.getText().substring(8, 10)))
-        );
-        
-        // cadastrar
-        try {
-           serviceAluno.cadastrar(alunoNovo); 
-           JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "Erro no cadastro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            );
+            
+            // cadastrar
+            try {
+               serviceAluno.cadastrar(alunoNovo); 
+               JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+               inputContacto.setText("");
+               inputNome.setText("");
+               inputNomeEncarregado.setText("");
+               inputDataMatricula.setText("");
+            } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(this, "Erro no cadastro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor preencha todos campos!", "Campos vazios", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
