@@ -18,12 +18,16 @@ public class AlunoService {
         alunoDAO.atualizar(aluno);
     }
 
-    public void remover(int id) {
-        alunoDAO.remover(id);
+    public void remover(String nrEstudante) {
+        alunoDAO.remover(nrEstudante);
     }
 
     public Aluno buscarPorId(int id) {
         return alunoDAO.buscarPorId(id);
+    }
+    
+    public Aluno buscarPorNrEstudante(String nrEst) {
+        return alunoDAO.buscarPorNrEstudante(nrEst);
     }
 
     public List<Aluno> listarTodos() {
