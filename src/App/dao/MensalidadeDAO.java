@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MensalidadeDAO {
+
     private final AlunoDAO alunoDAO = new AlunoDAO();
 
     public void inserir(Mensalidade mensalidade) {
         String sql = "INSERT INTO mensalidade (aluno_id, mes_referencia, valor, status) "
-                   + "VALUES (?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(
                 sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -80,8 +81,7 @@ public class MensalidadeDAO {
     public List<Mensalidade> listarEmAtraso() {
         List<Mensalidade> lista = new ArrayList<>();
         String sql = "SELECT * FROM mensalidade WHERE status = 'ATRASADO' ORDER BY mes_referencia";
-        try (Statement stmt = ConexaoBD.getConexao().createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Statement stmt = ConexaoBD.getConexao().createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 lista.add(mapear(rs));
@@ -94,9 +94,9 @@ public class MensalidadeDAO {
 
     public List<Mensalidade> listarPendentesComDataVencida() {
         List<Mensalidade> lista = new ArrayList<>();
-        String sql = "SELECT * FROM mensalidade WHERE status = 'PENDENTE' AND mes_referencia < CURDATE()";
-        try (Statement stmt = ConexaoBD.getConexao().createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        String sql = "String sql = \"SELECT * FROM mensalidade WHERE status = 'PENDENTE' \"\n" +
+"           + \"AND mes_referencia < DATE_FORMAT(CURDATE(), '%Y-%m-01')\";";
+        try (Statement stmt = ConexaoBD.getConexao().createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 lista.add(mapear(rs));
@@ -106,7 +106,7 @@ public class MensalidadeDAO {
         }
         return lista;
     }
-    
+
     public List<Mensalidade> listarPorMesReferencia(LocalDate mesReferencia) {
         List<Mensalidade> lista = new ArrayList<>();
         String sql = "SELECT * FROM mensalidade WHERE mes_referencia = ?";
@@ -135,5 +135,4 @@ public class MensalidadeDAO {
 
         return m;
     }
-}
 
