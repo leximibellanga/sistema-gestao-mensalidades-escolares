@@ -1,6 +1,7 @@
 package App.view;
 
 import App.view.alunos.PainelAlunos;
+import App.view.turmas.PainelTurmas;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -118,7 +119,7 @@ public class TelaPrincipal extends JFrame {
 
         // Painéis provisórios: vamos substituir cada linha pelo painel real
         pnlConteudo.add(new PainelAlunos(), CARD_ALUNOS);
-        pnlConteudo.add(criarPlaceholder("Turmas"), CARD_TURMAS);
+        pnlConteudo.add(new PainelTurmas(), CARD_TURMAS);
         pnlConteudo.add(criarPlaceholder("Mensalidades"), CARD_MENSALIDADES);
         pnlConteudo.add(criarPlaceholder("Relatórios"), CARD_RELATORIOS);
 
