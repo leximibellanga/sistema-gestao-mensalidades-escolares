@@ -136,3 +136,17 @@ public class MensalidadeDAO {
         return m;
     }
 
+    public List<Mensalidade> listarTodas() {
+        List<Mensalidade> lista = new ArrayList<>();
+        String sql = "SELECT * FROM mensalidade ORDER BY mes_referencia DESC";
+        try (Statement stmt = ConexaoBD.getConexao().createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                lista.add(mapear(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar mensalidades: " + e.getMessage(), e);
+        }
+        return lista;
+    }
+}
