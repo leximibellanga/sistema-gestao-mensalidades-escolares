@@ -52,8 +52,4 @@ public class TabelaTurmasModel extends AbstractTableModel {
     public Turma getTurmaNaLinha(int row) {
         return turmas.get(row);
     }
-
-    Turma getTurmaNaLinha(int linha) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
