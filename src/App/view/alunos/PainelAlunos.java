@@ -159,7 +159,7 @@ public class PainelAlunos extends JPanel {
             return;
         }
         try {
-            alunoService.remover(aluno.getId());
+            alunoService.remover(aluno.getNumeroEstudante());
             carregarTabela();
         } catch (RuntimeException e) {
             erro("Não foi possível remover o aluno.\n"
