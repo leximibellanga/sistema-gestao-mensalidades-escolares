@@ -84,5 +84,9 @@ public class Pagamento {
     public String toString() {
         return "Pagamento{" + "dataPagamento=" + dataPagamento + ", valorPago=" + valorPago + '}';
     } 
+
+    public void registrar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 

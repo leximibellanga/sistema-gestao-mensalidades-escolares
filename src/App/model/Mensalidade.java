@@ -70,7 +70,7 @@ public class Mensalidade {
         if (status == StatusMensalidade.PAGO) {
             return false;
         }
-        boolean atrasada = mesReferencia.isBefore(LocalDate.now());
+        boolean atrasada = mesReferencia.isBefore(LocalDate.now().withDayOfMonth(1));
         if (atrasada) {
             this.status = StatusMensalidade.ATRASADO;
         }

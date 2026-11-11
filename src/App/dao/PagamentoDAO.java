@@ -14,7 +14,7 @@ public class PagamentoDAO {
 
     public void inserir(Pagamento pagamento) {
         String sql = "INSERT INTO pagamento (mensalidade_id, data_pagamento, valor_pago, metodo) "
-                   + "VALUES (?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(
                 sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -61,5 +61,23 @@ public class PagamentoDAO {
         p.setMetodo(rs.getString("metodo"));
 
         return p;
+    }
+
+    public List<Pagamento> listarPorAluno(int alunoId) {
+        List<Pagamento> lista = new ArrayList<>();
+        String sql = "SELECT p.* FROM pagamento p "
+                + "JOIN mensalidade m ON m.id = p.mensalidade_id "
+                + "WHERE m.aluno_id = ? ORDER BY p.data_pagamento, p.id";
+        try (PreparedStatement stmt = ConexaoBD.getConexao().prepareStatement(sql)) {
+            stmt.setInt(1, alunoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapear(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar pagamentos do aluno: " + e.getMessage(), e);
+        }
+        return lista;
     }
 }
