@@ -3,6 +3,7 @@ package App.view;
 import App.view.alunos.PainelAlunos;
 import App.view.turmas.PainelTurmas;
 import App.view.mensalidades.PainelMensalidades;
+import App.view.relatorios.PainelRelatorios;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -122,7 +123,7 @@ public class TelaPrincipal extends JFrame {
         pnlConteudo.add(new PainelAlunos(), CARD_ALUNOS);
         pnlConteudo.add(new PainelTurmas(), CARD_TURMAS);
         pnlConteudo.add(new PainelMensalidades(), CARD_MENSALIDADES);
-        pnlConteudo.add(criarPlaceholder("Relatórios"), CARD_RELATORIOS);
+        pnlConteudo.add(new PainelRelatorios(), CARD_RELATORIOS);
 
         return pnlConteudo;
     }
