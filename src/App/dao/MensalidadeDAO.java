@@ -94,8 +94,8 @@ public class MensalidadeDAO {
 
     public List<Mensalidade> listarPendentesComDataVencida() {
         List<Mensalidade> lista = new ArrayList<>();
-        String sql = "String sql = \"SELECT * FROM mensalidade WHERE status = 'PENDENTE' \"\n" +
-"           + \"AND mes_referencia < DATE_FORMAT(CURDATE(), '%Y-%m-01')\";";
+        String sql = "SELECT * FROM mensalidade WHERE status = 'PENDENTE' "
+                + "AND mes_referencia < DATE_FORMAT(CURDATE(), '%Y-%m-01')";
         try (Statement stmt = ConexaoBD.getConexao().createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
