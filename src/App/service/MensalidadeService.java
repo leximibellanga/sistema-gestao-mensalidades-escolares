@@ -78,7 +78,7 @@ public class MensalidadeService {
 
         pagamentoDAO.inserir(pagamento);
         mensalidadeDAO.atualizarStatus(mensalidade.getId(), StatusMensalidade.PAGO);
-        pagamento.registrar(); // só depois de gravar: actualiza o objecto em memória
+        pagamento.registar(); // só depois de gravar: actualiza o objecto em memória
 
         return pagamento;
     }
