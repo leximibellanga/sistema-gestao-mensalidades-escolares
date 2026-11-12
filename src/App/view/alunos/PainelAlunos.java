@@ -117,7 +117,6 @@ public class PainelAlunos extends JPanel {
     }
 
     // ---------- Ações ----------
-
     private void carregarTabela() {
         try {
             List<Aluno> alunos = alunoService.listarTodos();
@@ -161,14 +160,15 @@ public class PainelAlunos extends JPanel {
         try {
             alunoService.remover(aluno.getNumeroEstudante());
             carregarTabela();
+        } catch (IllegalStateException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Não é possível remover", JOptionPane.WARNING_MESSAGE);
         } catch (RuntimeException e) {
-            erro("Não foi possível remover o aluno.\n"
-               + "Ele pode ter mensalidades associadas.\n\n" + e.getMessage());
+            erro("Não foi possível remover o aluno.\n\n" + e.getMessage());
         }
     }
 
     // ---------- Auxiliares ----------
-
     private Aluno alunoSelecionado() {
         int linha = tblAlunos.getSelectedRow();
         if (linha < 0) {
