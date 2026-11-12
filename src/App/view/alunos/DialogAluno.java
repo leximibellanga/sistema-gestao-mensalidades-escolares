@@ -14,7 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
@@ -27,6 +29,7 @@ import java.time.format.DateTimeParseException;
 public class DialogAluno extends JDialog {
 
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final Color COR_CAMPO_BLOQUEADO = new Color(235, 235, 235);
 
     private final AlunoService alunoService = new AlunoService();
     private final TurmaService turmaService = new TurmaService();
@@ -46,12 +49,17 @@ public class DialogAluno extends JDialog {
 
         JPanel form = new JPanel(new GridBagLayout());
         form.setBorder(BorderFactory.createEmptyBorder(20, 24, 10, 24));
-        adicionarLinha(form, 0, "Nr. Estudante:", txtNumero);
-        adicionarLinha(form, 1, "Nome:", txtNome);
-        adicionarLinha(form, 2, "Encarregado:", txtEncarregado);
-        adicionarLinha(form, 3, "Contacto:", txtContacto);
-        adicionarLinha(form, 4, "Turma:", cmbTurma);
-        adicionarLinha(form, 5, "Data de Matrícula:", txtData);
+
+        int linha = 0;
+        if (aluno != null) {
+            adicionarNota(form, linha++, "Só o nome, o encarregado e o contacto podem ser alterados.");
+        }
+        adicionarLinha(form, linha++, "Nr. Estudante:", txtNumero);
+        adicionarLinha(form, linha++, "Nome:", txtNome);
+        adicionarLinha(form, linha++, "Encarregado:", txtEncarregado);
+        adicionarLinha(form, linha++, "Contacto:", txtContacto);
+        adicionarLinha(form, linha++, "Turma:", cmbTurma);
+        adicionarLinha(form, linha++, "Data de Matrícula:", txtData);
 
         JButton btnSalvar = new JButton("Salvar");
         JButton btnCancelar = new JButton("Cancelar");
@@ -68,19 +76,46 @@ public class DialogAluno extends JDialog {
         getRootPane().setDefaultButton(btnSalvar);
 
         carregarTurmas();
-        if (aluno != null) {
-            preencher(aluno);
-        } else {
+
+        // O número é sempre gerado pelo sistema, nunca digitado
+        bloquear(txtNumero);
+        if (aluno == null) {
+            txtNumero.setText("Gerado automaticamente");
             txtData.setText(LocalDate.now().format(FORMATO_DATA));
+        } else {
+            preencher(aluno);
+            // Turma e data de matrícula definem o número e a mensalidade: ficam fixas
+            cmbTurma.setEnabled(false);
+            bloquear(txtData);
         }
 
         setResizable(false);
         pack();
         setLocationRelativeTo(owner);
+
+        SwingUtilities.invokeLater(txtNome::requestFocusInWindow);
     }
 
     public boolean foiSalvo() {
         return salvo;
+    }
+
+    private void bloquear(JTextField campo) {
+        campo.setEditable(false);
+        campo.setBackground(COR_CAMPO_BLOQUEADO);
+    }
+
+    private void adicionarNota(JPanel form, int linha, String texto) {
+        JLabel nota = new JLabel(texto);
+        nota.setForeground(new Color(110, 110, 110));
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = linha;
+        c.gridwidth = 2;
+        c.anchor = GridBagConstraints.WEST;
+        c.insets = new Insets(0, 0, 10, 0);
+        form.add(nota, c);
     }
 
     private void adicionarLinha(JPanel form, int linha, String rotulo, JComponent campo) {
@@ -124,29 +159,34 @@ public class DialogAluno extends JDialog {
     }
 
     private void salvar() {
-        LocalDate data;
-        try {
-            data = LocalDate.parse(txtData.getText().trim(), FORMATO_DATA);
-        } catch (DateTimeParseException e) {
-            erro("Data de matrícula inválida. Use o formato dd/MM/aaaa.");
-            return;
-        }
-
         // Objeto novo: se a gravação falhar, a linha da tabela não fica alterada
         Aluno a = new Aluno();
-        if (aluno != null) {
-            a.setId(aluno.getId());
-        }
-        a.setNumeroEstudante(txtNumero.getText().trim());
         a.setNome(txtNome.getText().trim());
         a.setEncarregado(txtEncarregado.getText().trim());
         a.setContacto(txtContacto.getText().trim());
-        a.setTurma((Turma) cmbTurma.getSelectedItem());
-        a.setDataMatricula(data);
+
+        if (aluno == null) {
+            try {
+                a.setDataMatricula(LocalDate.parse(txtData.getText().trim(), FORMATO_DATA));
+            } catch (DateTimeParseException e) {
+                erro("Data de matrícula inválida. Use o formato dd/MM/aaaa.");
+                return;
+            }
+            a.setTurma((Turma) cmbTurma.getSelectedItem());
+            // o número de estudante é gerado pelo AlunoService
+        } else {
+            a.setId(aluno.getId());
+            a.setNumeroEstudante(aluno.getNumeroEstudante());
+            a.setTurma(aluno.getTurma());
+            a.setDataMatricula(aluno.getDataMatricula());
+        }
 
         try {
             if (aluno == null) {
                 alunoService.cadastrar(a);
+                JOptionPane.showMessageDialog(this,
+                        "Aluno registado com o número " + a.getNumeroEstudante() + ".",
+                        "Aluno registado", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 alunoService.atualizar(a);
             }
@@ -155,8 +195,7 @@ public class DialogAluno extends JDialog {
         } catch (IllegalArgumentException e) {
             erro(e.getMessage());
         } catch (RuntimeException e) {
-            erro("Não foi possível gravar o aluno.\n"
-               + "Verifique se o número de estudante já existe.\n\n" + e.getMessage());
+            erro("Não foi possível gravar o aluno.\n\n" + e.getMessage());
         }
     }
 
