@@ -133,6 +133,7 @@ public class PainelMensalidades extends JPanel {
                 setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
                 if (!selecionada) {
                     setBackground(linha % 2 == 0 ? Color.WHITE : new Color(240, 240, 240));
+                    setForeground(t.getForeground()); // repõe a cor: o renderer é reaproveitado entre células
                     if (coluna == TabelaMensalidadesModel.COL_STATUS) {
                         Mensalidade m = tabelaModel.getMensalidadeNaLinha(t.convertRowIndexToModel(linha));
                         setForeground(corDoStatus(m.getStatus()));
