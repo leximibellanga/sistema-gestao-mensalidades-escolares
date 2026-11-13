@@ -4,6 +4,7 @@ import App.view.alunos.PainelAlunos;
 import App.view.turmas.PainelTurmas;
 import App.view.mensalidades.PainelMensalidades;
 import App.view.relatorios.PainelRelatorios;
+import App.view.dashboard.PainelDashboard;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -32,6 +33,7 @@ public class TelaPrincipal extends JFrame {
     public static final String CARD_TURMAS = "TURMAS";
     public static final String CARD_MENSALIDADES = "MENSALIDADES";
     public static final String CARD_RELATORIOS = "RELATORIOS";
+    public static final String CARD_DASHBOARD = "DASHBOARD";
 
     private static final Color COR_SIDEBAR = new Color(45, 45, 48);
     private static final Color COR_SIDEBAR_HOVER = new Color(62, 62, 66);
@@ -54,7 +56,7 @@ public class TelaPrincipal extends JFrame {
         add(criarSidebar(), BorderLayout.WEST);
         add(criarAreaConteudo(), BorderLayout.CENTER);
 
-        mostrarCard(CARD_MENSALIDADES); // ecrã inicial
+        mostrarCard(CARD_DASHBOARD); // ecrã inicial
     }
 
     private JPanel criarSidebar() {
@@ -70,6 +72,7 @@ public class TelaPrincipal extends JFrame {
         logo.setAlignmentX(Component.LEFT_ALIGNMENT);
         sidebar.add(logo);
 
+        sidebar.add(criarBotaoMenu("Início", CARD_DASHBOARD));
         sidebar.add(criarBotaoMenu("Alunos", CARD_ALUNOS));
         sidebar.add(criarBotaoMenu("Turmas", CARD_TURMAS));
         sidebar.add(criarBotaoMenu("Mensalidades", CARD_MENSALIDADES));
@@ -120,6 +123,7 @@ public class TelaPrincipal extends JFrame {
         pnlConteudo.setBackground(COR_CONTEUDO);
 
         // Painéis provisórios: vamos substituir cada linha pelo painel real
+        pnlConteudo.add(new PainelDashboard(), CARD_DASHBOARD);
         pnlConteudo.add(new PainelAlunos(), CARD_ALUNOS);
         pnlConteudo.add(new PainelTurmas(), CARD_TURMAS);
         pnlConteudo.add(new PainelMensalidades(), CARD_MENSALIDADES);
